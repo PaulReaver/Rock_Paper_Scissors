@@ -1,14 +1,12 @@
 //Create array with computer options
 const ARRAY = ["Rock", "Paper", "Scissors"];
 
-//Computer makes a choice
-const COMPUTERSELECTION = getComputerChoice(ARRAY);
+//Player and computer score
+let playerScore = 0;
+let computerScore = 0;
 
-//Player makes a choice
-const PLAYERSELECTION = getPlayerChoice();
-
-const RESULT = playRound(PLAYERSELECTION, COMPUTERSELECTION);
-console.log(RESULT);
+//Call function to play 5 games
+game();
 
 //Function to get random choice for the computer
 function getComputerChoice(array){
@@ -30,28 +28,49 @@ function getPlayerChoice(){
 //Function that checks player and computer choice and returns a wiiner
 function playRound(PLAYERSELECTION, COMPUTERSELECTION){
     if (PLAYERSELECTION === COMPUTERSELECTION){
+        playerScore += 1;
+        computerScore += 1; 
         return `It's a tie! You both picked ${PLAYERSELECTION}.`
     } else {
         if (PLAYERSELECTION === "Rock"){
             if (COMPUTERSELECTION === "Scissors"){
+                playerScore += 1;
                 return "You win! Rock beats Scissors."
             } else {
+                computerScore += 1;
                 return "You lose! Rock loses to Paper."
             }
         }
         if (PLAYERSELECTION === "Paper"){
             if (COMPUTERSELECTION === "Rock"){
+                playerScore += 1;
                 return "You win! Paper beats Rock."
             } else {
+                computerScore += 1;
                 return "You lose! Paper loses to Scissors."
             }
         }
         if (PLAYERSELECTION === "Scissors"){
             if (COMPUTERSELECTION === "Paper"){
+                playerScore += 1;
                 return "You win! Scissors beat Paper."
             } else {
+                computerScore += 1;
                 return "You lose! Scissors lose to Rock."
             }
         }
     }
+}
+
+//Function to play a game 5 times
+function game(){
+    for (let i = 0; i < 5; i++) {
+        //Player makes a choice
+        let playerSelection = getPlayerChoice();
+        //Computer makes a choice
+        let computerSelection = getComputerChoice(ARRAY);
+        let result = playRound(playerSelection, computerSelection);
+        console.log (result);
+     }
+     console.log(`Final score: ${playerScore} - ${computerScore}.`)
 }
