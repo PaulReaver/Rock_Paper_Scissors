@@ -25,7 +25,7 @@ function getPlayerChoice(){
     return playerSelection;
 }
 
-//Function that checks player and computer choice and returns a wiiner
+//Function that checks player and computer choice and returns a winner
 function playRound(PLAYERSELECTION, COMPUTERSELECTION){
     if (PLAYERSELECTION === COMPUTERSELECTION){
         playerScore += 1;
@@ -62,15 +62,14 @@ function playRound(PLAYERSELECTION, COMPUTERSELECTION){
     }
 }
 
-//Function to play a game 5 times
+//Function to play a game
 function game(){
-    for (let i = 0; i < 5; i++) {
-        //Player makes a choice
-        let playerSelection = getPlayerChoice();
-        //Computer makes a choice
-        let computerSelection = getComputerChoice(ARRAY);
-        let result = playRound(playerSelection, computerSelection);
-        console.log (result);
-     }
-     console.log(`Final score: ${playerScore} - ${computerScore}.`)
+    //Player makes a choice
+    let playerSelection = getPlayerChoice();
+    //Computer makes a choice
+    let computerSelection = getComputerChoice(ARRAY);
+    let result = playRound(playerSelection, computerSelection);
+    console.log (result);
+    
+    console.log(`Final score: ${playerScore} - ${computerScore}.`)
 }
