@@ -5,8 +5,26 @@ const ARRAY = ["Rock", "Paper", "Scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
-//Call function to play 5 games
-game();
+//Gets the div for displaying results
+const results = document.querySelector(".results")
+
+//Player chooses Rock
+document.querySelector(".rock").addEventListener("click", choiceRock);
+function choiceRock() {
+    playRound("Rock");
+}
+
+//Player chooses Paper
+document.querySelector(".paper").addEventListener("click", choicePaper);
+function choicePaper() {
+    playRound("Paper");
+}
+
+//Player chooses Scissors
+document.querySelector(".scissors").addEventListener("click", choiceScissors);
+function choiceScissors() {
+    playRound("Scissors");
+}
 
 //Function to get random choice for the computer
 function getComputerChoice(array){
@@ -15,62 +33,47 @@ function getComputerChoice(array){
     return CHOICE;
 }
 
-//Function for the player to make a choice
-function getPlayerChoice(){
-    let playerSelection = prompt("Pick Rock, Paper or Scissors");  
-    //Gets rid of spaces
-    playerSelection = playerSelection.trim();
-    //Makes the first letter uppercase and the rest lowercase
-    playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();  
-    return playerSelection;
-}
-
-//Function that checks player and computer choice and returns a wiiner
-function playRound(PLAYERSELECTION, COMPUTERSELECTION){
-    if (PLAYERSELECTION === COMPUTERSELECTION){
-        playerScore += 1;
-        computerScore += 1; 
-        return `It's a tie! You both picked ${PLAYERSELECTION}.`
+//Function that checks player and computer choice and returns a winner
+function playRound(PLAYERSELECTION){
+    const COMPUTERSELECTION = getComputerChoice(ARRAY);
+    if (PLAYERSELECTION === COMPUTERSELECTION){ 
+        results.textContent = `It's a tie! You both picked ${PLAYERSELECTION}. Score: ${playerScore} - ${computerScore}.`;
     } else {
         if (PLAYERSELECTION === "Rock"){
             if (COMPUTERSELECTION === "Scissors"){
                 playerScore += 1;
-                return "You win! Rock beats Scissors."
+                results.textContent = `You win! Rock beats Scissors. Score: ${playerScore} - ${computerScore}.`;
             } else {
                 computerScore += 1;
-                return "You lose! Rock loses to Paper."
+                results.textContent = `You lose! Rock loses to Paper. Score: ${playerScore} - ${computerScore}.`;
             }
         }
         if (PLAYERSELECTION === "Paper"){
             if (COMPUTERSELECTION === "Rock"){
                 playerScore += 1;
-                return "You win! Paper beats Rock."
+                results.textContent = `You win! Paper beats Rock. Score: ${playerScore} - ${computerScore}.`;
             } else {
                 computerScore += 1;
-                return "You lose! Paper loses to Scissors."
+                results.textContent = `You lose! Paper loses to Scissors. Score: ${playerScore} - ${computerScore}.`;
             }
         }
         if (PLAYERSELECTION === "Scissors"){
             if (COMPUTERSELECTION === "Paper"){
                 playerScore += 1;
-                return "You win! Scissors beat Paper."
+                results.textContent = `You win! Scissors beat Paper. Score: ${playerScore} - ${computerScore}.`;
             } else {
                 computerScore += 1;
-                return "You lose! Scissors lose to Rock."
+                results.textContent = `You lose! Scissors lose to Rock. Score: ${playerScore} - ${computerScore}.`;
             }
         }
     }
-}
-
-//Function to play a game 5 times
-function game(){
-    for (let i = 0; i < 5; i++) {
-        //Player makes a choice
-        let playerSelection = getPlayerChoice();
-        //Computer makes a choice
-        let computerSelection = getComputerChoice(ARRAY);
-        let result = playRound(playerSelection, computerSelection);
-        console.log (result);
-     }
-     console.log(`Final score: ${playerScore} - ${computerScore}.`)
+    if (playerScore === 5 || computerScore === 5) {
+        if (playerScore > computerScore) {
+            results.textContent = results.textContent + " Congratulations! You won!";
+        } else {
+            results.textContent = results.textContent + " Sorry... You lost...";
+        }
+        playerScore = 0;
+        computerScore = 0;
+    }
 }
