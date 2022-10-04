@@ -4,9 +4,31 @@ const ARRAY = ["Rock", "Paper", "Scissors"];
 //Player and computer score
 let playerScore = 0;
 let computerScore = 0;
+let playerSelection;
 
-//Call function to play 5 games
-game();
+//Player chooses Rock
+document.querySelector(".rock").addEventListener("click", choiceRock);
+function choiceRock() {
+    playerSelection = "Rock";
+    const RESULT = playRound(playerSelection);
+    console.log(RESULT);
+}
+
+//Player chooses Paper
+document.querySelector(".paper").addEventListener("click", choicePaper);
+function choicePaper() {
+    playerSelection = "Paper";
+    const RESULT = playRound(playerSelection);
+    console.log(RESULT);
+}
+
+//Player chooses Scissors
+document.querySelector(".scissors").addEventListener("click", choiceScissors);
+function choiceScissors() {
+    playerSelection = "Scissors";
+    const RESULT = playRound(playerSelection);
+    console.log(RESULT);
+}
 
 //Function to get random choice for the computer
 function getComputerChoice(array){
@@ -15,18 +37,9 @@ function getComputerChoice(array){
     return CHOICE;
 }
 
-//Function for the player to make a choice
-function getPlayerChoice(){
-    let playerSelection = prompt("Pick Rock, Paper or Scissors");  
-    //Gets rid of spaces
-    playerSelection = playerSelection.trim();
-    //Makes the first letter uppercase and the rest lowercase
-    playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();  
-    return playerSelection;
-}
-
 //Function that checks player and computer choice and returns a winner
-function playRound(PLAYERSELECTION, COMPUTERSELECTION){
+function playRound(PLAYERSELECTION){
+    const COMPUTERSELECTION = getComputerChoice(ARRAY);
     if (PLAYERSELECTION === COMPUTERSELECTION){
         playerScore += 1;
         computerScore += 1; 
@@ -60,16 +73,4 @@ function playRound(PLAYERSELECTION, COMPUTERSELECTION){
             }
         }
     }
-}
-
-//Function to play a game
-function game(){
-    //Player makes a choice
-    let playerSelection = getPlayerChoice();
-    //Computer makes a choice
-    let computerSelection = getComputerChoice(ARRAY);
-    let result = playRound(playerSelection, computerSelection);
-    console.log (result);
-    
-    console.log(`Final score: ${playerScore} - ${computerScore}.`)
 }
